@@ -7,12 +7,14 @@ import datetime
 import pytz
 
 Temp = {}
-Hookers = []
+Hooks = []
+
+WEBHOOK = "ENTER YOUR WEBHOOK"
 
 def webhookSender():
     while True:
-        if len(Hookers) != 0:
-            for message in Hookers:
+        if len(Hooks) != 0:
+            for message in Hooks:
                 img, desc = message
                 webhook(img, desc)
                 time.sleep(1)
@@ -63,7 +65,7 @@ def webhook(url, desc):
     embed["fields"] = fields
     message["embeds"].append(embed)
 
-    wbhook = "https://discordapp.com/api/webhooks/711044287474827327/DE8-i_kvPfSMN-7TGU7HBcI0PwNJcvD5RqzXqYy47k5uufkouKukoDPEhkMAmPtqI8JP"
+    wbhook = WEBHOOK
     result = requests.post(wbhook, data=json.dumps(message), headers={"Content-Type": "application/json"})
 
     try:
@@ -122,7 +124,7 @@ def jsonMessage(styleid, color, img, sizes, url):
             sizet = f"[{str(size)}]({str(url)})\n"
         desc = desc + sizet
     hookertup = (img, desc)
-    Hookers.append(hookertup)
+    Hooks.append(hookertup)
 
 
 def jsonMonitor(url):
